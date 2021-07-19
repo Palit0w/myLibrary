@@ -1,11 +1,4 @@
-let myLibrary = [
-  book1 = {
-    title: "tuVieja",
-    author: "tuvieja2",
-    pages: 56,
-    read: true,
-  }
-];
+let myLibrary;
 
 //Selectors and eventListeners
 const tableBody = document.querySelector(".table-body");
@@ -17,7 +10,6 @@ const form = document.querySelector("form").addEventListener("submit", (e) => {
   e.preventDefault();
   addBookToLibrary();
   clearFrom();
-  displayLibrary();
 });
 
 
@@ -41,6 +33,8 @@ function addBookToLibrary() {
   }
   const newBook = new book(formTitle.value, formAuthor.value, formPages.value, formRead.checked);
   myLibrary.push(newBook);
+  displayLibrary();
+  updateSavedLibrary();
 }
 
 function clearFrom() {
@@ -52,10 +46,14 @@ function clearFrom() {
 
 function deleteBook(e) {
   myLibrary.splice(e.target.dataset.index, 1);
+  displayLibrary();
+  updateSavedLibrary();
 }
 
 function changeRead(e) {
   myLibrary[e.target.dataset.index].read = !myLibrary[e.target.dataset.index].read;
+  displayLibrary();
+  updateSavedLibrary();
 }
 
 function displayLibrary() {
@@ -72,7 +70,6 @@ function displayLibrary() {
     let readBtn = document.createElement("button");
     readBtn.addEventListener("click", (e) => {
       changeRead(e);
-      displayLibrary();
     });
     readBtn.classList.add("read-btn");
     readBtn.dataset.index = index;
@@ -89,7 +86,6 @@ function displayLibrary() {
     let deleteBtn = document.createElement("button");
     deleteBtn.addEventListener("click", (e) => {
       deleteBook(e);
-      displayLibrary();
     });
     deleteBtn.classList.add("delete-btn");
     deleteBtn.dataset.index = index;
@@ -103,4 +99,20 @@ function displayLibrary() {
   });
 }
 
+//Local Storage
+function updateSavedLibrary() {
+  localStorage.setItem("library", JSON.stringify(myLibrary));
+}
+
+function getSavedLibrary() {
+  if (localStorage.getItem("library")) {
+    myLibrary = JSON.parse(localStorage.getItem("library"));
+  } 
+  else {
+    myLibrary = [];
+  }
+}
+
+//Initial load
+getSavedLibrary();
 displayLibrary();
