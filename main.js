@@ -54,40 +54,51 @@ function deleteBook(e) {
   myLibrary.splice(e.target.dataset.index, 1);
 }
 
+function changeRead(e) {
+  myLibrary[e.target.dataset.index].read = !myLibrary[e.target.dataset.index].read;
+}
+
 function displayLibrary() {
   tableBody.innerHTML = '';
   myLibrary.forEach((myBook, index) => {
     let title = document.createElement("td");
     title.textContent = myBook.title;
-
     let author = document.createElement("td");
     author.textContent = myBook.author;
-
     let pages = document.createElement("td");
     pages.textContent = myBook.pages;
 
-    let read = document.createElement("td");
+    //Read Button
+    let readBtn = document.createElement("button");
+    readBtn.addEventListener("click", (e) => {
+      changeRead(e);
+      displayLibrary();
+    });
+    readBtn.classList.add("read-btn");
+    readBtn.dataset.index = index;
     if (myBook.read) {
-      read.textContent = "✔";
+      readBtn.textContent = "✔";
     }
     else {
-      read.textContent = "✘"
+      readBtn.textContent = "🛇"
     }
+    let readContainer = document.createElement("td")
+    readContainer.append(readBtn);
 
+    //Delete Button
     let deleteBtn = document.createElement("button");
     deleteBtn.addEventListener("click", (e) => {
       deleteBook(e);
       displayLibrary();
     });
-
     deleteBtn.classList.add("delete-btn");
     deleteBtn.dataset.index = index;
-    deleteBtn.textContent = "🛇";
+    deleteBtn.textContent = "✘";
     let deleteContainer = document.createElement("td");
     deleteContainer.append(deleteBtn);
 
     let tr = document.createElement("tr");
-    tr.append(title, author, pages, read, deleteContainer);
+    tr.append(title, author, pages, readContainer, deleteContainer);
     tableBody.append(tr);
   });
 }
