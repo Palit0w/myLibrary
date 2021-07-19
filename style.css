@@ -1,0 +1,41 @@
+.container {
+  width: 80%;
+  margin: 0 auto;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.form-container {
+  margin-bottom: 40px;
+  margin-top: 20px;
+}
+
+.delete-btn {
+	background-color:#fe1a00;
+	border-radius:10px;
+	border:1px solid #d83526;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	font-weight:bold;
+	padding:10px 10px;
+	text-decoration:none;
+  transition: transform 0.1s, background-color 0.1s;
+}
+
+.delete-btn:hover {
+  background-color:#bd1300;
+  transform: scale(1.05);
+}
