@@ -13,15 +13,16 @@ const form = document.querySelector("form").addEventListener("submit", (e) => {
 });
 
 
-//Constructor
-function book(title, author, pages, read) {
-  this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
-}
-book.prototype.info = function name(params) {
-  return `${title} by ${author}, ${pages} pages, ${read ? "read" : "not read yet"}`;
+class book {
+  constructor(title, author, pages, read) {
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.read = read;
+  }
+  info() {
+    return `${title} by ${author}, ${pages} pages, ${read ? "read" : "not read yet"}`;
+  }
 }
 
 
